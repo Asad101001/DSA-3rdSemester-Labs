@@ -35,7 +35,7 @@ void display() {
 
     Node* cur = list;
     do {
-        cout << cur->data << " -> ";
+        cout << cur->data << "  ";
         cur = cur->next;
     } while (cur != list);
 
