@@ -32,8 +32,7 @@ Node * insertRecursive(Node * curr , int val){
 Node * insertIterative(Node *  curr, int val){
     Node *temp = new Node();
     temp->data = val;
-    temp->right = NULL;
-    temp->left = NULL;
+    temp->right = temp->left = NULL;
 
     if (curr == NULL){
         return temp;
