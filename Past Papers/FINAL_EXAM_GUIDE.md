@@ -1,333 +1,222 @@
-# DSA Finals Lab - Past Papers Master Guide 🚀
+# 🚀 DSA Finals Masterclass: In-Depth Objective Guides
 
-This guide provides deep, thorough explanations and pseudocode for all 12 objectives found in the `Past Papers` directory. This is designed for your final lab exam preparation, focusing on the core manual C-style implementations without relying on high-level abstractions.
-
----
-
-## 🌳 Objective 01: Median 4-ary Tree
-**Concept:** Instead of a binary tree (2 children), we build a 4-ary tree (4 children) by splitting a sorted list into 4 equal quadrants using the median as the root.
-**Deep Dive:** We recursively find the exact median index. The array is split into $S_1$, $S_2$, $S_3$, and $S_4$. We then recursively generate 4 subtrees. This approach ensures maximum tree balance.
-
-### 📝 Pseudocode (Recursive Construction)
-```text
-function build4aryTree(arr, start, end, level):
-    if start > end:
-        return NULL
-    
-    // Find absolute median
-    mid = start + (end - start) / 2
-    root = createNode(arr[mid], level)
-    
-    // Calculate boundaries for 4 quadrants
-    quarter = (end - start + 1) / 4
-    
-    // Recursively build 4 children
-    root->child1 = build4aryTree(arr, start, start + quarter - 1, level + 1)
-    root->child2 = build4aryTree(arr, start + quarter, mid - 1, level + 1)
-    root->child3 = build4aryTree(arr, mid + 1, end - quarter, level + 1)
-    root->child4 = build4aryTree(arr, end - quarter + 1, end, level + 1)
-    
-    return root
-```
+Welcome to the **Deep Dive DSA Guide**. This document breaks down the most complex Data Structures concepts from your past papers. We will cover the general theory, provide scenario walkthroughs with Mermaid diagrams, analyze the C-code line-by-line, and lay out the raw pseudocode. 
 
 ---
 
-## 🪞 Objective 02: Float Binary Tree Mirror
-**Concept:** Construct a binary tree using Level-Order (Heap-style) insertion for floating-point numbers, and then generate its exact mirror image.
-**Deep Dive:** Heap-style insertion requires a Queue. Since we can't use STL, we build a static array-based queue to track nodes. Mirroring simply swaps the left and right pointers of every single node in the tree recursively.
+## 🌳 Part 1: The Median 4-ary Tree (Objective 01)
 
-### 📝 Pseudocode (Mirroring a Tree)
-```text
-function mirrorTree(root):
-    if root == NULL:
-        return
+### 🧠 General Theory
+In a standard Binary Search Tree (BST), we split data into 2 paths (Left for smaller, Right for greater). A **4-ary tree** has 4 children per node. To ensure the tree is perfectly balanced, we don't just insert nodes randomly. Instead, we take a sorted array, find the absolute **Median** (the exact middle), make it the root, and then divide the remaining elements into 4 equal quarters (S1, S2, S3, S4). We then recursively find the median of those quarters to become the children!
+
+**💡 Tips & Tricks:**
+*   **Base Case is King:** In array-splitting recursion, the base case `if (start > end)` prevents infinite loops.
+*   **Integer Math:** In C, `(end - start + 1) / 4` automatically floors the value. Be careful with off-by-one errors when assigning the start/end bounds for the 4 children.
+
+### 🏗️ Scenario & Visual Walkthrough
+**Scenario:** You have a sorted array `S = [22, 44, 75, 90, 92, 99, 110, 112, 125, 130, 131]`. (11 elements).
+1.  **Median:** The middle element is `99` (Index 5). `99` becomes the Root.
+2.  **Quarters:** The remaining 10 elements are split into 4 parts. 
+    *   `S1` = [22, 44]
+    *   `S2` = [75, 90]
+    *   `S3` = [110, 112]
+    *   `S4` = [125, 130, 131] (Takes the remainder)
+
+```mermaid
+graph TD
+    Root((99))
+    Root --> C1((33 <br> S1 Median))
+    Root --> C2((82 <br> S2 Median))
+    Root --> C3((111 <br> S3 Median))
+    Root --> C4((130 <br> S4 Median))
     
-    // Post-order or Pre-order swap
-    mirrorTree(root->left)
-    mirrorTree(root->right)
-    
-    // Swap pointers
-    temp = root->left
-    root->left = root->right
-    root->right = temp
+    style Root fill:#f9f,stroke:#333,stroke-width:4px
 ```
+
+### 💻 Line-by-Line Code Breakdown
+```cpp
+1: struct Node* buildTree(int* arr, int start, int end, int level) {
+2:     if (start > end) return NULL;
+3:     
+4:     int mid = start + (end - start) / 2;
+5:     struct Node* root = createNode(arr[mid], level);
+6:     
+7:     int n = end - start + 1;
+8:     int q = n / 4;
+9:     
+10:    root->child1 = buildTree(arr, start, start + q - 1, level + 1);
+11:    // ... builds remaining 3 children ...
+12:    return root;
+13:}
+```
+*   **Line 1:** We pass the array pointer, the `start` bound, `end` bound, and the current tree `level`.
+*   **Line 2:** The recursive base case. If `start` passes `end`, we are out of array bounds. Return `NULL`.
+*   **Line 4:** Calculates the median index. `start + (end - start) / 2` is used instead of `(start + end) / 2` to prevent integer overflow on massive arrays.
+*   **Line 5:** Allocates memory for the new Root node using the median data.
+*   **Line 7-8:** Calculates how many elements are in this current sub-array (`n`) and exactly what 25% of that is (`q`).
+*   **Line 10:** Recursively calls `buildTree` for the first child. Notice the bounds: `start` to `start + q - 1`. This isolates the exact first 25% of the array for this specific child.
 
 ---
 
-## ⚡ Objective 03: Doubly Linked List QuickSort
-**Concept:** Performing the QuickSort algorithm purely on a Doubly Linked List (in-place) without converting it to an array.
-**Deep Dive:** We use Lomuto's Partition scheme. We pick the last node as a pivot. We maintain a pointer `i` that tracks the boundary of elements smaller than the pivot. When traversing with `j`, if `j->data < pivot->data`, we advance `i` and swap the data of `i` and `j`.
+## 🪞 Part 2: Level-Order Heap Tree & Mirroring (Objective 02 & 05)
 
-### 📝 Pseudocode (DLL Partition)
-```text
-function partition(startNode, endNode):
-    pivotValue = endNode->data
-    i = startNode->prev // Tracks smaller elements
+### 🧠 General Theory
+A **Heap-style** tree is a *Complete Binary Tree*. This means every level is fully filled from left to right before moving to the next level. You CANNOT insert using standard BST logic (where < goes left, > goes right). Instead, you must use a **Queue (Breadth-First Search)** to find the first available empty child slot from top-to-bottom, left-to-right.
+**Mirroring** a tree is the process of physically swapping the `left` and `right` pointers of every single node in the tree.
+
+**💡 Tips & Tricks:**
+*   Since you can't use C++ STL `<queue>`, you must implement an inline array-based queue: `struct Node* queue[100]; int front = 0, rear = 0;`.
+*   Mirroring is best done using **Post-Order Traversal** (process left, process right, then swap).
+
+### 🏗️ Scenario & Visual Walkthrough
+**Scenario:** Insert `[10, 20, 30]` heap-style, then mirror it.
+1. `10` is root.
+2. Queue checks `10`. Left is NULL. `20` becomes `10->left`.
+3. Queue checks `10`. Right is NULL. `30` becomes `10->right`.
+
+```mermaid
+graph TD
+    subgraph Original Tree
+    A((10)) --> B((20))
+    A --> C((30))
+    end
     
-    for j = startNode to endNode (exclusive):
-        if j->data <= pivotValue:
-            if i == NULL: i = startNode
-            else: i = i->next
-            swap(i->data, j->data)
+    subgraph Mirrored Tree
+    A2((10)) --> C2((30))
+    A2 --> B2((20))
+    end
     
-    if i == NULL: i = startNode
-    else: i = i->next
-    
-    swap(i->data, endNode->data)
-    return i
+    style A fill:#bbf,stroke:#333
+    style A2 fill:#fbf,stroke:#333
 ```
+
+### 💻 Line-by-Line Code Breakdown (Mirror)
+```cpp
+1: void mirrorTree(struct Node* root) {
+2:     if (root == NULL) return;
+3:     
+4:     mirrorTree(root->left);
+5:     mirrorTree(root->right);
+6:     
+7:     struct Node* temp = root->left;
+8:     root->left = root->right;
+9:     root->right = temp;
+10:}
+```
+*   **Line 2:** Base case. If we hit a NULL leaf, stop traversing.
+*   **Line 4-5:** We dive all the way down to the deepest left node, then the deepest right node before doing any work (Post-order).
+*   **Line 7-9:** The actual swap. We store the `left` pointer in a `temp` variable, overwrite `left` with `right`, and then overwrite `right` with the `temp`. This physically flips the tree structure in memory!
 
 ---
 
-## 🔍 Objective 04: BST Search, Pred & Succ
-**Concept:** In a Binary Search Tree, perform basic node searching, count total nodes, and find the In-Order Predecessor and Successor for a given value.
-**Deep Dive:** The predecessor is the maximum value in the left subtree. The successor is the minimum value in the right subtree.
+## ⚡ Part 3: Doubly Linked List In-Place QuickSort (Objective 03)
 
-### 📝 Pseudocode (Finding Predecessor & Successor)
-```text
-function findPredSucc(root, target, pred, succ):
-    if root == NULL: return
-    
-    if root->data == target:
-        // Pred is max of left subtree
-        if root->left != NULL:
-            temp = root->left
-            while temp->right != NULL: temp = temp->right
-            pred = temp
-        
-        // Succ is min of right subtree
-        if root->right != NULL:
-            temp = root->right
-            while temp->left != NULL: temp = temp->left
-            succ = temp
-        return
-        
-    if root->data > target:
-        succ = root // Potential successor
-        findPredSucc(root->left, target, pred, succ)
-    else:
-        pred = root // Potential predecessor
-        findPredSucc(root->right, target, pred, succ)
+### 🧠 General Theory
+QuickSort on an array is easy because we have random access (`arr[5]`). On a Doubly Linked List (DLL), we don't! We can only move `next` or `prev`. To do an **in-place QuickSort** (without allocating new arrays), we use **Lomuto's Partition Scheme**. 
+We pick the last node as the `pivot`. We maintain two pointers: `i` tracks the boundary of elements smaller than the pivot, and `j` scans the list. When `j` finds a smaller element, `i` moves forward, and we swap their data.
+
+**💡 Tips & Tricks:**
+*   **Swap Data, Not Pointers!** Swapping `next` and `prev` pointers in a DLL during a sort is an absolute nightmare and prone to segfaults. Just swap the `int data` inside the nodes!
+
+### 🏗️ Scenario & Visual Walkthrough
+**Scenario:** DLL = `[30 <-> 10 <-> 40 <-> 20]`. Pivot = `20`.
+1. `i` starts at NULL. `j` starts at `30`.
+2. `j=30` > `20`. Do nothing.
+3. `j=10` < `20`. Advance `i` to first node (`30`). Swap `i` and `j` data. List becomes `[10, 30, 40, 20]`.
+4. `j=40` > `20`. Do nothing.
+5. Loop ends. Swap `i->next` (which is `30`) with Pivot (`20`). List becomes `[10, 20, 40, 30]`. Pivot `20` is now in its exact correct sorted position!
+
+```mermaid
+flowchart LR
+    Start([10, 30, 40, 20])
+    subgraph Partition Process
+    P1[Pivot = 20] --> S1[j=10 is smaller]
+    S1 --> Sw1[Swap 30 and 10]
+    Sw1 --> P2[Final Swap Pivot]
+    end
+    P2 --> Final([10, 20, 40, 30])
 ```
+
+### 💻 Line-by-Line Breakdown (Partition)
+```cpp
+1: struct Node* partition(struct Node* start, struct Node* end) {
+2:     int pivot = end->data;
+3:     struct Node* i = start->prev;
+4:     
+5:     for (struct Node* j = start; j != end; j = j->next) {
+6:         if (j->data <= pivot) {
+7:             i = (i == NULL) ? start : i->next;
+8:             int temp = i->data;
+9:             i->data = j->data;
+10:            j->data = temp;
+11:        }
+12:    }
+13:    i = (i == NULL) ? start : i->next;
+14:    int temp = i->data;
+15:    i->data = end->data;
+16:    end->data = temp;
+17:    return i;
+18:}
+```
+*   **Line 2-3:** Pivot is the last element's data. `i` starts *one position behind* `start`.
+*   **Line 5:** Standard DLL traversal loop up to (but not including) the `end` node.
+*   **Line 6-7:** If `j` finds a small value, we move `i` forward. If `i` was NULL, moving it forward means it points to `start`.
+*   **Line 8-10:** We swap the `data` payloads of nodes `i` and `j`. No pointer manipulation required!
+*   **Line 13-16:** Finally, we move the pivot element (`end`) into its correct sorted position right after `i`.
 
 ---
 
-## 🌲 Objective 05: Heap Tree Mirror & Pred/Succ Combo
-**Concept:** A complete fusion of Objective 02 and Objective 04. Insert using Queue (Level-Order), mirror it, and then find Predecessor and Successor.
-**Deep Dive:** Because this is a Heap-style tree (complete binary tree) and NOT a Binary Search Tree, finding Pred/Succ requires an entirely different approach: In-Order traversal into an array, and then finding the target to get `arr[i-1]` and `arr[i+1]`.
+## 🗺️ Part 4: Maze BFS via Adjacency List (Objective 09 & 12)
 
-### 📝 Pseudocode (Heap Pred/Succ via Array)
-```text
-function inOrderToArray(root, arr, index):
-    if root == NULL: return
-    inOrderToArray(root->left, arr, index)
-    arr[index++] = root
-    inOrderToArray(root->right, arr, index)
+### 🧠 General Theory
+Graph theory algorithms (BFS/DFS) don't naturally understand a 2D Array `[row][col]`. You must first **Map the Grid to a Graph**. 
+Each cell in an `n x m` grid gets a unique 1D integer ID: `NodeID = row * m + col`. 
+For every `0` (walkable cell), you look in all 8 directions. If a neighbor is also a `0`, you create a directed edge in an **Adjacency List**. Once the list is built, you run standard Breadth-First Search (BFS) using a Queue to find the shortest path.
 
-function findPredSuccInHeap(root, target):
-    arr = new Array()
-    inOrderToArray(root, arr, 0)
+**💡 Tips & Tricks:**
+*   Always use a `visited[]` array! If you don't, your BFS will bounce back and forth between two nodes infinitely.
+*   Use a `parent[]` array. When `A` discovers `B`, `parent[B] = A`. This is the ONLY way to reconstruct the exact path once you reach the exit.
+
+### 🏗️ Scenario & Visual Walkthrough
+**Scenario:** A 2x2 grid. `[0, 1]` on row 1, `[0, 0]` on row 2.
+`Node 0 (0,0)` is connected to `Node 2 (1,0)` and `Node 3 (1,1)`.
+BFS Queue: Push `0`. Pop `0`, push its unvisited neighbors `2` and `3`. Record their parent as `0`. Pop `2`... etc.
+
+```mermaid
+graph TD
+    N0((Node 0 <br> [0,0])) -->|Valid Move| N2((Node 2 <br> [1,0]))
+    N0 -->|Valid Move| N3((Node 3 <br> [1,1]))
+    N1((Node 1 <br> [0,1])) -.-x|Wall 1| N1
     
-    for i = 0 to length(arr):
-        if arr[i]->data == target:
-            pred = (i > 0) ? arr[i-1] : NULL
-            succ = (i < length-1) ? arr[i+1] : NULL
-            print(pred, succ)
-            return
+    style N0 fill:#bbf,stroke:#333
+    style N1 fill:#f99,stroke:#333
 ```
 
----
-
-## 🔗 Objective 06: SLL Sorted Insert & Reverse
-**Concept:** Insert elements into a Singly Linked List so it remains perfectly sorted, then create a deep copy of the list that is completely reversed.
-**Deep Dive:** Sorted insert requires maintaining a trailing pointer or checking `current->next->data`. Copy-reverse is elegantly solved by traversing the original list and always inserting the copied node at the `HEAD` of the new list.
-
-### 📝 Pseudocode (Sorted Insert & Head-Insert Reverse)
-```text
-function sortedInsert(head, value):
-    newNode = createNode(value)
-    if head == NULL OR head->data >= value:
-        newNode->next = head
-        head = newNode
-        return
-        
-    current = head
-    while current->next != NULL AND current->next->data < value:
-        current = current->next
-        
-    newNode->next = current->next
-    current->next = newNode
-
-function copyReverse(head):
-    newHead = NULL
-    current = head
-    while current != NULL:
-        newNode = createNode(current->data)
-        newNode->next = newHead // Insert at HEAD!
-        newHead = newNode
-        current = current->next
-    return newHead
+### 💻 Line-by-Line Breakdown (Graph Mapping)
+```cpp
+1: int dx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+2: int dy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+3: 
+4: for (int i = 0; i < n; i++) {
+5:     for (int j = 0; j < m; j++) {
+6:         if (maze[i][j] == 1) continue;
+7:         
+8:         int u = i * m + j;
+9:         for (int k = 0; k < 8; k++) {
+10:            int ni = i + dx[k];
+11:            int nj = j + dy[k];
+12:            
+13:            if (ni >= 0 && ni < n && nj >= 0 && nj < m && maze[ni][nj] == 0) {
+14:                int v = ni * m + nj;
+15:                addEdge(graph, u, v);
+16:            }
+17:        }
+18:    }
+19:}
 ```
-
----
-
-## 🔄 Objective 07: DLL Sorted Insert & Copy Reverse
-**Concept:** Same logic as Objective 06, but strictly applied to a Doubly Linked List, requiring careful management of the `prev` pointers.
-**Deep Dive:** When inserting into a DLL, if you insert between `A` and `B`, you must update `A->next`, `newNode->prev`, `newNode->next`, and crucially `B->prev`.
-
-### 📝 Pseudocode (DLL Sorted Insert Edge Cases)
-```text
-function dllSortedInsert(head, value):
-    newNode = createNode(value)
-    
-    // Case 1: Empty or replacing head
-    if head == NULL OR head->data >= value:
-        newNode->next = head
-        if head != NULL: head->prev = newNode
-        head = newNode
-        return
-        
-    // Case 2: Middle or End
-    current = head
-    while current->next != NULL AND current->next->data < value:
-        current = current->next
-        
-    newNode->next = current->next
-    if current->next != NULL:
-        current->next->prev = newNode
-        
-    current->next = newNode
-    newNode->prev = current
-```
-
----
-
-## ⚖️ Objective 08: BST Equality & Structure Descending
-**Concept:** Compare two separate BSTs to check if they are identical (data + structure), check if they just share the same structure, and print a tree in descending order.
-**Deep Dive:** Traversing `Right -> Root -> Left` automatically yields a descending order in a valid BST. Structural equality simply ignores the `data` comparison step.
-
-### 📝 Pseudocode (Structural Equality & Descending Sort)
-```text
-function hasSameStructure(tree1, tree2):
-    if tree1 == NULL AND tree2 == NULL: return TRUE
-    if tree1 == NULL OR tree2 == NULL: return FALSE
-    
-    return hasSameStructure(tree1->left, tree2->left) AND 
-           hasSameStructure(tree1->right, tree2->right)
-
-function printDescending(root):
-    if root == NULL: return
-    printDescending(root->right)
-    print(root->data)
-    printDescending(root->left)
-```
-
----
-
-## 🗺️ Objective 09 & 12: Maze BFS (Dynamic & Static)
-**Concept:** Given a grid maze of 0s (path) and 1s (walls), map it into a Graph using an Adjacency List, then find the shortest path from `(0,0)` to `(n-1,m-1)` using Breadth-First Search. Objective 09 is dynamically allocated, 12 is static array.
-**Deep Dive:** The hardest part is graph conversion. A grid `n x m` has `n*m` nodes. Node ID = `row * m + col`. From each cell, check 8 valid directions. If a neighbor is valid and `0`, add a directed edge in the Adjacency List. BFS then uses a Queue to find the path, utilizing a `parent` array to backtrack the final route.
-
-### 📝 Pseudocode (Grid to Graph Mapping & BFS)
-```text
-function buildAdjacencyList(grid, n, m):
-    for i = 0 to n-1:
-        for j = 0 to m-1:
-            if grid[i][j] == 1: continue // Wall
-            
-            nodeId = i * m + j
-            for each direction (dx, dy) in 8_directions:
-                ni = i + dx
-                nj = j + dy
-                if isValid(ni, nj) AND grid[ni][nj] == 0:
-                    neighborId = ni * m + nj
-                    addEdge(nodeId, neighborId)
-
-function BFS(start, target):
-    queue.push(start)
-    visited[start] = TRUE
-    parent[start] = -1
-    
-    while queue is not empty:
-        current = queue.pop()
-        if current == target: break
-        
-        for neighbor in adjList[current]:
-            if not visited[neighbor]:
-                visited[neighbor] = TRUE
-                parent[neighbor] = current
-                queue.push(neighbor)
-                
-    // Backtrack path
-    path = []
-    curr = target
-    while curr != -1:
-        path.prepend(curr)
-        curr = parent[curr]
-    print(path)
-```
-
----
-
-## ↕️ Objective 10: DLL Reverse & MinMax
-**Concept:** Reverse a Doubly Linked List purely by manipulating pointers (no copying), and find the Min and Max values.
-**Deep Dive:** To reverse a DLL in place, you simply iterate through every node and swap its `next` and `prev` pointers. The original `tail` becomes the new `head`.
-
-### 📝 Pseudocode (In-Place DLL Reverse)
-```text
-function reverseDLL(head):
-    if head == NULL: return NULL
-    
-    current = head
-    temp = NULL
-    
-    while current != NULL:
-        // Swap next and prev
-        temp = current->prev
-        current->prev = current->next
-        current->next = temp
-        
-        // Move to the next node (which is now in prev)
-        current = current->prev
-        
-    // temp->prev is the new head
-    if temp != NULL:
-        head = temp->prev
-        
-    return head
-```
-
----
-
-## 🎯 Objective 11: DLL MinMax & Middle Extraction
-**Concept:** Advanced pointer manipulation in a Doubly Linked List. Find the absolute Minimum and move it to the `HEAD`. Find the Maximum and move it to the `TAIL`. Find the exact middle node in one pass.
-**Deep Dive:** Detaching a node requires bypassing it (`node->prev->next = node->next`). The middle node is found using the "Tortoise and Hare" algorithm (slow and fast pointers).
-
-### 📝 Pseudocode (Move to Ends & Tortoise/Hare)
-```text
-function moveMinToFirst(head):
-    minNode = findMinNode(head)
-    if minNode == head: return
-    
-    // Detach minNode
-    minNode->prev->next = minNode->next
-    if minNode->next != NULL:
-        minNode->next->prev = minNode->prev
-        
-    // Attach to Head
-    minNode->next = head
-    minNode->prev = NULL
-    head->prev = minNode
-    head = minNode
-
-function findMiddle(head):
-    slow = head
-    fast = head
-    
-    // Fast moves 2x speed, Slow moves 1x speed
-    while fast != NULL AND fast->next != NULL:
-        fast = fast->next->next
-        slow = slow->next
-        
-    return slow->data // Slow is at exact middle
-```
+*   **Line 1-2:** Directional arrays. These represent the (x, y) offsets for all 8 compass directions (N, S, E, W, NE, NW, SE, SW).
+*   **Line 6:** If the current cell is a wall (`1`), skip it entirely.
+*   **Line 8:** Calculate the unique 1D `u` Node ID for the current `(i,j)` coordinate.
+*   **Line 10-11:** Apply the offset to get the neighbor's coordinate `(ni, nj)`.
+*   **Line 13:** The boundary check! Ensure `ni` and `nj` haven't fallen off the edge of the board, AND that the neighbor is a walkable `0`.
+*   **Line 14-15:** Calculate the neighbor's 1D `v` Node ID, and add an edge from `u` to `v` in the Adjacency List.
