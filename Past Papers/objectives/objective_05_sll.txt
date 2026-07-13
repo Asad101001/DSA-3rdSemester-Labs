@@ -1,0 +1,4 @@
+OBJECTIVE 5
+Use linked list to perform following operations: 
+1 Sort the value at the time of insertion in a list 
+2 copy the list in a completely new list and reverse it.

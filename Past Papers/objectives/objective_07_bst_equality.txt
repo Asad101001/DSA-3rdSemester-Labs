@@ -1,0 +1,4 @@
+Construct two binary search trees and check if they are 
+• Equal 
+• Have same structure
+• sort the nodes in descending order 

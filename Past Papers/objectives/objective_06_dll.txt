@@ -1,0 +1,4 @@
+OBJECTIVE 6
+Use double linked list to perform following operations: 
+1 SortedInsert : Sort the value at the time of insertion in a list 
+2 CopyReverse : copy the reverse of first list in a completely new list.
