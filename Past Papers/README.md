@@ -41,7 +41,7 @@ graph TD
 8:     int q = n / 4;
 9:     
 10:    root->child1 = buildTree(arr, start, start + q - 1, level + 1);
-11:    // ... builds remaining 3 children ...
+11:    ... builds remaining 3 children ...
 12:    return root;
 13:}
 ```
