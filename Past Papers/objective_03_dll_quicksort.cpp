@@ -1,25 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-// Objective 03: Doubly Linked List with Quick Sort
-// Maintains start, last, and index in nodes.
-
 struct Node {
     int index;
     int data;
-    struct Node* next;
-    struct Node* prev;
+    struct Node * next;
+    struct Node * prev;
 };
-
-// Insert at the end, maintaining start, last and node count (index)
-void insert(struct Node** start, struct Node** last, int val) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+void insert(struct Node ** start, struct Node ** last, int val) {
+    struct Node * newNode = (struct Node *)malloc(sizeof(struct Node));
     newNode->data = val;
     newNode->next = NULL;
     newNode->prev = NULL;
-
     if (*start == NULL) {
-        newNode->index = 1; // Count starts at 1
+        newNode->index = 1; 
         *start = newNode;
         *last = newNode;
     } else {
@@ -29,30 +22,23 @@ void insert(struct Node** start, struct Node** last, int val) {
         *last = newNode;
     }
 }
-
-// Print elements
-void print(struct Node* start) {
-    struct Node* temp = start;
+void print(struct Node * start) {
+    struct Node * temp = start;
     while (temp != NULL) {
         printf("[Idx:%d | Val:%d] ", temp->index, temp->data);
         temp = temp->next;
     }
     printf("\n");
 }
-
-// Swap values for Quick Sort
-void swapNodes(struct Node* a, struct Node* b) {
+void swapNodes(struct Node * a, struct Node * b) {
     int temp = a->data;
     a->data = b->data;
     b->data = temp;
 }
-
-// Partition function for Quick Sort on DLL
-struct Node* partition(struct Node* l, struct Node* h) {
+struct Node * partition(struct Node * l, struct Node * h) {
     int pivot = h->data;
-    struct Node* i = l->prev;
-
-    for (struct Node* j = l; j != h; j = j->next) {
+    struct Node * i = l->prev;
+    for (struct Node * j = l; j != h; j = j->next) {
         if (j->data <= pivot) {
             if (i == NULL) {
                 i = l;
@@ -62,7 +48,6 @@ struct Node* partition(struct Node* l, struct Node* h) {
             swapNodes(i, j);
         }
     }
-    
     if (i == NULL) {
         i = l;
     } else {
@@ -71,33 +56,25 @@ struct Node* partition(struct Node* l, struct Node* h) {
     swapNodes(i, h);
     return i;
 }
-
-// Quick Sort recursive implementation
-void quickSort(struct Node* l, struct Node* h) {
+void quickSort(struct Node * l, struct Node * h) {
     if (h != NULL && l != h && l != h->next) {
-        struct Node* p = partition(l, h);
+        struct Node * p = partition(l, h);
         quickSort(l, p->prev);
         quickSort(p->next, h);
     }
 }
-
 int main() {
-    struct Node* start = NULL;
-    struct Node* last = NULL;
-    
+    struct Node * start = NULL;
+    struct Node * last = NULL;
     insert(&start, &last, 50);
     insert(&start, &last, 20);
     insert(&start, &last, 40);
     insert(&start, &last, 10);
     insert(&start, &last, 30);
-    
     printf("List before sorting:\n");
     print(start);
-    
     quickSort(start, last);
-    
     printf("\nList after Quick Sort:\n");
     print(start);
-    
     return 0;
 }
