@@ -13,6 +13,24 @@ Welcome to the Data Structures and Applications repository. This repository cont
 
 ---
 
+## 🗺️ Curriculum Map
+
+```mermaid
+flowchart TD
+    A["00: Intro to C++"] --> B["01: Search & Sort"]
+    B --> C["02-03: Linked Lists"]
+    C --> D["04: Stacks & Queues"]
+    D --> E["05-06: Hashing"]
+    D --> F["07-08: BST & Sorting"]
+    F --> G["09-11: Expression & AVL Trees"]
+    F --> H["12: Heaps"]
+    G --> I["13: Graphs & BFS"]
+    H --> I
+    E --> I
+```
+
+---
+
 ## What's Inside
 
 | Path | Contents |
