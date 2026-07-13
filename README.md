@@ -17,20 +17,20 @@ Welcome to the Data Structures and Applications repository. This repository cont
 
 | Path | Contents |
 | --- | --- |
-| `week00_cpp/` | C++ basics: pointers, functions, arrays, dynamic memory. |
-| `week01_search_sort/` | Searching algorithms and basic sorting techniques. |
-| `week02_sll/` | Insertion sort and basic singly linked lists (SLL). |
-| `week03_dll_cll/` | Doubly linked lists (DLL), circular variants (CLL), and deletion logic. |
-| `week04_stack_queue/` | Static arrays vs Dynamic implementations for stacks and queues. |
-| `week05_hashing/` | Linear and quadratic probing, basic hash tables. |
-| `week06_hash_adv/` | Advanced hashing, chaining, and multi-lists. |
-| `week07_bst/` | Getting started with Binary Search Trees, Merge Sort, and Quick Sort. |
-| `week08_bst_del/` | Removing nodes from a Binary Search Tree. |
-| `week09_postfix/` | Infix to postfix expression conversions. |
-| `week10_avl/` | AVL trees and rotations. |
-| `week11_expr_tree/` | Expression trees and postfix mathematical evaluation. |
-| `week12_heaps/` | Max and Min Heaps implementation along with sorting. |
-| `week13_graphs/` | Graph fundamentals, Adjacency Lists, Adjacency Matrices, and BFS. |
+| `00-Intro-to-CPP/` | C++ basics: pointers, functions, arrays, dynamic memory. |
+| `01-Searching-and-Sorting/` | Searching algorithms and basic sorting techniques. |
+| `02-Singly-Linked-Lists/` | Insertion sort and basic singly linked lists (SLL). |
+| `03-Doubly-and-Circular-Lists/` | Doubly linked lists (DLL), circular variants (CLL), and deletion logic. |
+| `04-Stacks-and-Queues/` | Static arrays vs Dynamic implementations for stacks and queues. |
+| `05-Hash-Tables/` | Linear and quadratic probing, basic hash tables. |
+| `06-Advanced-Hashing/` | Advanced hashing, chaining, and multi-lists. |
+| `07-Binary-Search-Trees/` | Getting started with Binary Search Trees, Merge Sort, and Quick Sort. |
+| `08-BST-Deletion/` | Removing nodes from a Binary Search Tree. |
+| `09-Infix-to-Postfix/` | Infix to postfix expression conversions. |
+| `10-AVL-Trees/` | AVL trees and rotations. |
+| `11-Expression-Trees/` | Expression trees and postfix mathematical evaluation. |
+| `12-Heaps/` | Max and Min Heaps implementation along with sorting. |
+| `13-Graphs/` | Graph fundamentals, Adjacency Lists, Adjacency Matrices, and BFS. |
 | `Practice/` | Extra implementations for BST and AVL trees. |
 | `Mid Term Prep/` | Revision code and setups for midterm preparation. |
 | `Past Papers/` | Solutions to past-paper objectives implemented using core C++ constraints. |
