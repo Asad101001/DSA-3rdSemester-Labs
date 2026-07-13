@@ -17,20 +17,20 @@ Welcome to the Data Structures and Applications repository. This repository cont
 
 | Path | Contents |
 | --- | --- |
-| `Week 0 (Intro to C++)/` | C++ basics: pointers, functions, arrays, dynamic memory. |
-| `Week 1 (Search & Sorts)/` | Searching algorithms and basic sorting techniques. |
-| `Week 2 (Intro to Linked Lists)/` | Insertion sort and basic singly linked lists. |
-| `Week 3 (Doubly & Circularly)/` | Doubly linked lists, circular variants, and deletion logic. |
-| `Week 4 (Stacks & Queues)/` | Static arrays vs Dynamic implementations for stacks and queues. |
-| `Week 5 (HashTables)/` | Linear and quadratic probing, basic hash tables. |
-| `Week 6 (Open/Closed Hashing)/` | Advanced hashing, chaining, and multi-lists. |
-| `Week 7 (Intro to BSTs)/` | Getting started with Binary Search Trees, Merge Sort, and Quick Sort. |
-| `Week 8 (BST Deletion)/` | Removing nodes from a Binary Search Tree. |
-| `Week 9/` | Infix to postfix expression conversions. |
-| `Week 10/` | AVL trees and rotations. |
-| `Week 11 (Postfix Eval)/` | Expression trees and postfix mathematical evaluation. |
-| `Week 12 (Heaps & Sort)/` | Max and Min Heaps implementation along with sorting. |
-| `Week 13 (Graphs)/` | Graph fundamentals, Adjacency Lists, Adjacency Matrices, and BFS. |
+| `Week_00-Intro_CPP/` | C++ basics: pointers, functions, arrays, dynamic memory. |
+| `Week_01-Search_and_Sort/` | Searching algorithms and basic sorting techniques. |
+| `Week_02-Linked_Lists_Basics/` | Insertion sort and basic singly linked lists. |
+| `Week_03-Advanced_Linked_Lists/` | Doubly linked lists, circular variants, and deletion logic. |
+| `Week_04-Stacks_and_Queues/` | Static arrays vs Dynamic implementations for stacks and queues. |
+| `Week_05-HashTables_Basics/` | Linear and quadratic probing, basic hash tables. |
+| `Week_06-Advanced_Hashing/` | Advanced hashing, chaining, and multi-lists. |
+| `Week_07-BST_and_Sorting/` | Getting started with Binary Search Trees, Merge Sort, and Quick Sort. |
+| `Week_08-BST_Operations/` | Removing nodes from a Binary Search Tree. |
+| `Week_09-Infix_to_Postfix/` | Infix to postfix expression conversions. |
+| `Week_10-AVL_Trees/` | AVL trees and rotations. |
+| `Week_11-Expression_Trees/` | Expression trees and postfix mathematical evaluation. |
+| `Week_12-Heaps/` | Max and Min Heaps implementation along with sorting. |
+| `Week_13-Graphs/` | Graph fundamentals, Adjacency Lists, Adjacency Matrices, and BFS. |
 | `Practice/` | Extra implementations for BST and AVL trees. |
 | `Mid Term Prep/` | Revision code and setups for midterm preparation. |
 | `Past Papers/` | Solutions to past-paper objectives implemented using core C++ constraints. |
