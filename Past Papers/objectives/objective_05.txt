@@ -1,0 +1,7 @@
+Objective # 05:
+Build a Binary Tree by inserting elements in the same manner as nodes are inserted in the heap i.e. from left to right. Each node should hold a string value.
+Given a pointer to the root of a binary tree:
+- Find its mirror image; mirror image of the tree is build such that the left child of the root is now the right child and right is now the left.
+- Given an element x, find the predecessors and successors of x; if x exists.
+- Find the level of any element x in the tree; if x exists.
+- Find the height of the node of any element x in the tree; if x exists.

@@ -1,0 +1,7 @@
+Objective # 09:
+You need to implement double linked list, in which you need to implement following operations:
+Insert an element
+Print list
+Reverse list: If user call the reverse operation then the whole list reversed (change pointers from previous to next and next to previous, and start will point to last node), remember now list is updated.
+Find minimum element in the list
+Find maximum element in the list

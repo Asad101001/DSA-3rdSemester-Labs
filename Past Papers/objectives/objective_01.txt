@@ -1,0 +1,8 @@
+Objective # 01: Implement the following problem: (recursive approach is required)
+
+Given a set S of integers in an array
+(a) Find the median M (middle value) of S;
+(b) Store M as the root and divide S into four equal parts S1, S2, S3 and S4;
+S1 contains the numbers less than or equal to M/2; S2 contains the numbers greater than M/2 and less than M; S3 contains the numbers greater than M and less than 3M/2; and S4 contains the remaining elements.
+(c) Create the first subtree of M from S1, 2nd subtree from S2, third from S3 and 4th from S4 in the same recursive way as mentioned in (a) - (b).
+(d) Whenever a node is inserted in the tree you need to output the level and height of all the nodes of the tree.

@@ -1,0 +1,4 @@
+Objective # 02:
+Build a Binary Tree by inserting elements in the same manner as nodes are inserted in the heap i.e. from left to right. Each node should hold a float value.
+Given a pointer to the root of a binary tree:
+- Find its mirror image; mirror image of the tree is build such that the left child of the root is now the right child and right is now the left.

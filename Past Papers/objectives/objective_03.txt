@@ -1,0 +1,5 @@
+Objective # 03:
+You need to implement double linked list, in which you need to implement insert and print operations only.
+Other than the start you are also required to store the address of the last element of the list.
+Also, in each node an index need to be maintained that is the count of the node in the list.
+Now, you need to implement Quick Sort on this double linked list.
