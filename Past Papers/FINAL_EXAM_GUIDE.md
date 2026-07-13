@@ -24,11 +24,11 @@ In a standard Binary Search Tree (BST), we split data into 2 paths (Left for sma
 
 ```mermaid
 graph TD
-    Root((99))
-    Root --> C1((33 <br> S1 Median))
-    Root --> C2((82 <br> S2 Median))
-    Root --> C3((111 <br> S3 Median))
-    Root --> C4((130 <br> S4 Median))
+    Root(("99"))
+    Root --> C1(("33 <br> S1 Median"))
+    Root --> C2(("82 <br> S2 Median"))
+    Root --> C3(("111 <br> S3 Median"))
+    Root --> C4(("130 <br> S4 Median"))
     
     style Root fill:#f9f,stroke:#333,stroke-width:4px
 ```
@@ -76,14 +76,14 @@ A **Heap-style** tree is a *Complete Binary Tree*. This means every level is ful
 
 ```mermaid
 graph TD
-    subgraph Original Tree
-    A((10)) --> B((20))
-    A --> C((30))
+    subgraph Original_Tree [Original Tree]
+    A(("10")) --> B(("20"))
+    A --> C(("30"))
     end
     
-    subgraph Mirrored Tree
-    A2((10)) --> C2((30))
-    A2 --> B2((20))
+    subgraph Mirrored_Tree [Mirrored Tree]
+    A2(("10")) --> C2(("30"))
+    A2 --> B2(("20"))
     end
     
     style A fill:#bbf,stroke:#333
@@ -128,13 +128,13 @@ We pick the last node as the `pivot`. We maintain two pointers: `i` tracks the b
 
 ```mermaid
 flowchart LR
-    Start([10, 30, 40, 20])
-    subgraph Partition Process
-    P1[Pivot = 20] --> S1[j=10 is smaller]
-    S1 --> Sw1[Swap 30 and 10]
-    Sw1 --> P2[Final Swap Pivot]
+    Start(["[10, 30, 40, 20]"])
+    subgraph Partition_Process [Partition Process]
+    P1["Pivot = 20"] --> S1["j=10 is smaller"]
+    S1 --> Sw1["Swap 30 and 10"]
+    Sw1 --> P2["Final Swap Pivot"]
     end
-    P2 --> Final([10, 20, 40, 30])
+    P2 --> Final(["[10, 20, 40, 30]"])
 ```
 
 ### 💻 Line-by-Line Breakdown (Partition)
@@ -184,9 +184,9 @@ BFS Queue: Push `0`. Pop `0`, push its unvisited neighbors `2` and `3`. Record t
 
 ```mermaid
 graph TD
-    N0((Node 0 <br> [0,0])) -->|Valid Move| N2((Node 2 <br> [1,0]))
-    N0 -->|Valid Move| N3((Node 3 <br> [1,1]))
-    N1((Node 1 <br> [0,1])) -.-x|Wall 1| N1
+    N0(("Node 0 <br> [0,0]")) -->|"Valid Move"| N2(("Node 2 <br> [1,0]"))
+    N0 -->|"Valid Move"| N3(("Node 3 <br> [1,1]"))
+    N1(("Node 1 <br> [0,1]")) -.->|"Wall"| N1
     
     style N0 fill:#bbf,stroke:#333
     style N1 fill:#f99,stroke:#333
