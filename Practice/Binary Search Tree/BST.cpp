@@ -118,64 +118,20 @@ bool searchIterative(Node * curr , int val){
 }
 
 
-// Node* minNode(Node* curr) {
-//     Node* temp = curr;
-//     while (temp->left != NULL) {
-//         temp = temp->left;
-//     }
-//     return temp;
-// }
 
 
-// Node* deleteNode(Node* curr, int val) {
-//     if (curr == NULL) {
-//         cout << "Value not found\n";
-//         return NULL;
-//     }
 
-//     if (val < curr->data) {
-//         curr->left = deleteNode(curr->left, val);
-//     }
-//     else if (val > curr->data) {
-//         curr->right = deleteNode(curr->right, val);
-//     }
-//     else {
         
-//         //0 child
-//         if (curr->left == NULL && curr->right == NULL) {
-//             delete curr;
-//             return NULL;
-//         }
 
-//         //1 child on right
-//         if (curr->left == NULL) {
-//             Node* temp = curr->right;
-//             delete curr;
-//             return temp;
-//         }
 
-//         //1 child on left
-//         if (curr->right == NULL) {
-//             Node* temp = curr->left;
-//             delete curr;
-//             return temp;
-//         }
 
-//         //2 children
-//         Node* temp = minNode(curr->right);
-//         curr->data = temp->data;
-//         curr->right = deleteNode(curr->right, temp->data);
-//     }
 
-//     return curr;
-// }
 
 
 
 
 int main() {
 
-//Insertions done both recursively and iteratively    
     root = insertIterative(root,1);
     root = insertIterative(root,11);
     root =insertIterative(root,21);
@@ -185,7 +141,6 @@ int main() {
 
 
 
-//Iterative searching     
     if(searchIterative(root,2))
     cout << "2 exists"<<endl;
     else
@@ -197,7 +152,6 @@ int main() {
         cout << "69 doesn't exist" << endl;    
 
   
-//Recursive searching     
     if(searchRecursive(root,21))
     cout << "21 exists"<<endl;
     else
@@ -209,7 +163,6 @@ int main() {
         cout << "67 doesn't exist" << endl;
 
 
-//All three forms of tree traversals done recursively
     cout << "PreOrder traversal: ";
     PreOrder(root);
     cout << endl;

@@ -1,5 +1,3 @@
-// 11_sorting_comparison.cpp
-// Side-by-side comparison and performance analysis
 
 #include <iostream>
 #include <vector>
@@ -9,8 +7,6 @@
 using namespace std;
 using namespace chrono;
 
-// ============ INSTRUMENTED VERSIONS ============
-// Track comparisons, swaps, and passes
 
 struct SortStats {
     int comparisons;
@@ -29,7 +25,6 @@ struct SortStats {
     }
 };
 
-// Bubble Sort with statistics
 SortStats bubbleSortInstrumented(vector<int>& arr) {
     SortStats stats;
     auto start = high_resolution_clock::now();
@@ -59,7 +54,6 @@ SortStats bubbleSortInstrumented(vector<int>& arr) {
     return stats;
 }
 
-// Selection Sort with statistics
 SortStats selectionSortInstrumented(vector<int>& arr) {
     SortStats stats;
     auto start = high_resolution_clock::now();
@@ -90,7 +84,6 @@ SortStats selectionSortInstrumented(vector<int>& arr) {
     return stats;
 }
 
-// ============ COMPARISON TESTS ============
 
 void compareOnArray(vector<int> arr, const string& testName) {
     cout << "\n" << string(60, '=') << endl;
@@ -105,17 +98,14 @@ void compareOnArray(vector<int> arr, const string& testName) {
     if (arr.size() > 10) cout << "...";
     cout << "] (size: " << arr.size() << ")" << endl;
     
-    // Test Bubble Sort
     vector<int> arr1 = arr;
     SortStats bubbleStats = bubbleSortInstrumented(arr1);
     bubbleStats.print("Bubble Sort");
     
-    // Test Selection Sort
     vector<int> arr2 = arr;
     SortStats selectionStats = selectionSortInstrumented(arr2);
     selectionStats.print("Selection Sort");
     
-    // Comparison
     cout << "\nComparison:" << endl;
     cout << "  Fewer comparisons:  " 
          << (bubbleStats.comparisons < selectionStats.comparisons ? "Bubble" : 
@@ -135,7 +125,6 @@ void compareOnArray(vector<int> arr, const string& testName) {
          << endl;
 }
 
-// ============ VISUALIZATION ============
 
 void visualizeSort(const string& name, vector<int> arr) {
     cout << "\n" << name << " VISUALIZATION" << endl;
@@ -143,19 +132,16 @@ void visualizeSort(const string& name, vector<int> arr) {
     
     int n = arr.size();
     
-    // Print initial state
     cout << "Start: ";
     for (int x : arr) cout << x << " ";
     cout << endl << endl;
     
     if (name == "Bubble Sort") {
-        // Bubble sort visualization
         for (int i = 0; i < n - 1; i++) {
             bool swapped = false;
             cout << "Pass " << (i + 1) << ":" << endl;
             
             for (int j = 0; j < n - 1 - i; j++) {
-                // Show comparison
                 cout << "  [";
                 for (int k = 0; k < n; k++) {
                     if (k == j || k == j + 1) {
@@ -184,7 +170,6 @@ void visualizeSort(const string& name, vector<int> arr) {
             cout << endl;
         }
     } else {
-        // Selection sort visualization
         for (int i = 0; i < n - 1; i++) {
             cout << "Pass " << (i + 1) << ":" << endl;
             
@@ -220,7 +205,6 @@ void visualizeSort(const string& name, vector<int> arr) {
     cout << endl;
 }
 
-// ============ PRACTICE PROBLEMS ============
 
 void practiceProblems() {
     cout << "\n" << string(60, '=') << endl;
@@ -231,7 +215,6 @@ void practiceProblems() {
     cout << "Input: [3, 1, 4, 1, 5, 9, 2, 6]" << endl;
     vector<int> p1 = {3, 1, 4, 1, 5, 9, 2, 6};
     
-    // Simulate one pass
     for (int j = 0; j < 7; j++) {
         if (p1[j] > p1[j + 1]) {
             swap(p1[j], p1[j + 1]);
@@ -250,7 +233,6 @@ void practiceProblems() {
     cout << "Input: [3, 1, 4, 1, 5, 9, 2, 6]" << endl;
     vector<int> p2 = {3, 1, 4, 1, 5, 9, 2, 6};
     
-    // Find minimum and swap
     int minIdx = 0;
     for (int j = 1; j < 8; j++) {
         if (p2[j] < p2[minIdx]) minIdx = j;
@@ -285,37 +267,29 @@ void practiceProblems() {
     cout << "Winner: Bubble Sort (adaptive - detected nearly sorted)" << endl;
 }
 
-// ============ MAIN ============
 int main() {
     cout << "BUBBLE SORT vs SELECTION SORT" << endl;
     cout << "Complete Comparison & Analysis" << endl;
     
-    // Test 1: Random array
     vector<int> random = {64, 34, 25, 12, 22, 11, 90};
     compareOnArray(random, "Random Array");
     
-    // Test 2: Already sorted (best case for bubble)
     vector<int> sorted = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     compareOnArray(sorted, "Already Sorted (Best case for Bubble)");
     
-    // Test 3: Reverse sorted (worst case)
     vector<int> reverse = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
     compareOnArray(reverse, "Reverse Sorted (Worst case)");
     
-    // Test 4: Nearly sorted
     vector<int> nearly = {1, 2, 3, 4, 10, 6, 7, 8, 9, 5};
     compareOnArray(nearly, "Nearly Sorted");
     
-    // Test 5: Many duplicates
     vector<int> dupes = {5, 2, 5, 2, 5, 2, 5, 2};
     compareOnArray(dupes, "Many Duplicates");
     
-    // Test 6: Large array
     vector<int> large(100);
     for (int i = 0; i < 100; i++) large[i] = 100 - i;
     compareOnArray(large, "Large Array (100 elements, reverse sorted)");
     
-    // Visualizations
     cout << "\n\n" << string(60, '=') << endl;
     cout << "VISUALIZATIONS" << endl;
     cout << string(60, '=') << endl;
@@ -326,10 +300,8 @@ int main() {
     vis = {5, 2, 8, 1, 9};
     visualizeSort("Selection Sort", vis);
     
-    // Practice problems
     practiceProblems();
     
-    // Summary table
     cout << "\n\n" << string(60, '=') << endl;
     cout << "SUMMARY TABLE" << endl;
     cout << string(60, '=') << endl;
@@ -353,7 +325,6 @@ int main() {
     return 0;
 }
 
-/*
 KEY INSIGHTS FROM TESTING:
 
 1. ALREADY SORTED ARRAYS:

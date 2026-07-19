@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 using namespace std;
 const int TABLE_SIZE = 11;  
@@ -50,20 +49,11 @@ struct LinearProbingHashTable {
 };
 template <typename K, typename V>
 void linearInsert(LinearProbingHashTable<K, V>* ht, K key, V value) {
-    if (ht->size >= ht->capacity) {
-        cout << "Error: Hash table is full!" << endl;
-        return;
     }
-    int index = hashFunction(key, ht->capacity);
     int i = 0;  
-    while (i < ht->capacity) {
         int probedIndex = (index + i) % ht->capacity;
-        if (ht->table[probedIndex].status == EMPTY || 
-            ht->table[probedIndex].status == DELETED) {
-            ht->table[probedIndex].key = key;
             ht->table[probedIndex].value = value;
             ht->table[probedIndex].status = OCCUPIED;
-            ht->size++;
             cout << "  Inserted '" << key << "' at index " << probedIndex;
             if (i > 0) {
                 cout << " (after " << i << " probes)";
@@ -77,30 +67,16 @@ void linearInsert(LinearProbingHashTable<K, V>* ht, K key, V value) {
             cout << "  Updated '" << key << "' at index " << probedIndex << endl;
             return;
         }
-        i++;  
-    }
-    cout << "Error: Could not insert (table full)" << endl;
 }
 template <typename K, typename V>
 bool linearSearch(LinearProbingHashTable<K, V>* ht, K key, V* result) {
-    int index = hashFunction(key, ht->capacity);
-    int i = 0;
-    while (i < ht->capacity) {
         int probedIndex = (index + i) % ht->capacity;
-        if (ht->table[probedIndex].status == EMPTY) {
             return false;
         }
-        if (ht->table[probedIndex].status == OCCUPIED && 
-            ht->table[probedIndex].key == key) {
-            *result = ht->table[probedIndex].value;
             return true;
         }
         i++;
-    }
-    return false;  
-}
 template <typename K, typename V>
-bool linearDelete(LinearProbingHashTable<K, V>* ht, K key) {
     int index = hashFunction(key, ht->capacity);
     int i = 0;
     while (i < ht->capacity) {
@@ -109,11 +85,7 @@ bool linearDelete(LinearProbingHashTable<K, V>* ht, K key) {
             return false;  
         }
         if (ht->table[probedIndex].status == OCCUPIED && 
-            ht->table[probedIndex].key == key) {
-            ht->table[probedIndex].status = DELETED;
-            ht->size--;
             cout << "  Deleted '" << key << "' from index " << probedIndex << endl;
-            return true;
         }
         i++;
     }
@@ -124,7 +96,6 @@ void displayLinear(LinearProbingHashTable<K, V>* ht) {
     cout << "\nHash Table Contents (Linear Probing):\n";
     cout << "Index | Status    | Key       | Value\n";
     cout << "------|-----------|-----------|----------\n";
-    for (int i = 0; i < ht->capacity; i++) {
         cout << "  " << i << "   | ";
         if (ht->table[i].status == EMPTY) {
             cout << "EMPTY     | -         | -\n";
@@ -141,7 +112,6 @@ void displayLinear(LinearProbingHashTable<K, V>* ht) {
 }
 template <typename K, typename V>
 struct QuadraticProbingHashTable {
-    HashEntry<K, V>* table;
     int capacity;
     int size;
     QuadraticProbingHashTable(int cap = TABLE_SIZE) {
@@ -156,19 +126,12 @@ struct QuadraticProbingHashTable {
 template <typename K, typename V>
 void quadraticInsert(QuadraticProbingHashTable<K, V>* ht, K key, V value) {
     if (ht->size >= ht->capacity) {
-        cout << "Error: Hash table is full!" << endl;
         return;
     }
-    int index = hashFunction(key, ht->capacity);
-    int i = 0;
     while (i < ht->capacity) {
         int probedIndex = (index + i * i) % ht->capacity;
         if (ht->table[probedIndex].status == EMPTY || 
-            ht->table[probedIndex].status == DELETED) {
-            ht->table[probedIndex].key = key;
-            ht->table[probedIndex].value = value;
             ht->table[probedIndex].status = OCCUPIED;
-            ht->size++;
             cout << "  Inserted '" << key << "' at index " << probedIndex;
             if (i > 0) {
                 cout << " (after " << i << " probes, sequence: ";
@@ -211,7 +174,6 @@ bool quadraticSearch(QuadraticProbingHashTable<K, V>* ht, K key, V* result) {
 }
 template <typename K, typename V>
 bool quadraticDelete(QuadraticProbingHashTable<K, V>* ht, K key) {
-    int index = hashFunction(key, ht->capacity);
     int i = 0;
     while (i < ht->capacity) {
         int probedIndex = (index + i * i) % ht->capacity;
@@ -222,15 +184,11 @@ bool quadraticDelete(QuadraticProbingHashTable<K, V>* ht, K key) {
             ht->table[probedIndex].key == key) {
             ht->table[probedIndex].status = DELETED;
             ht->size--;
-            cout << "  Deleted '" << key << "' from index " << probedIndex << endl;
             return true;
-        }
         i++;
-    }
     return false;
 }
 template <typename K, typename V>
-void displayQuadratic(QuadraticProbingHashTable<K, V>* ht) {
     cout << "\nHash Table Contents (Quadratic Probing):\n";
     cout << "Index | Status    | Key       | Value\n";
     cout << "------|-----------|-----------|----------\n";
@@ -242,11 +200,9 @@ void displayQuadratic(QuadraticProbingHashTable<K, V>* ht) {
         else if (ht->table[i].status == DELETED) {
             cout << "DELETED   | -         | -\n";
         }
-        else {
             cout << "OCCUPIED  | " << ht->table[i].key << " | " 
                  << ht->table[i].value << "\n";
         }
-    }
     cout << "Size: " << ht->size << "/" << ht->capacity << endl;
 }
 void demonstrateLinearProbing() {
@@ -260,7 +216,6 @@ void demonstrateLinearProbing() {
     linearInsert(&ht, string("Charlie"), 35);
     linearInsert(&ht, string("Diana"), 28);
     linearInsert(&ht, string("Eve"), 32);
-    displayLinear(&ht);
     cout << "\nSearching:\n";
     int value;
     if (linearSearch(&ht, string("Charlie"), &value)) {
@@ -268,13 +223,11 @@ void demonstrateLinearProbing() {
     }
     if (!linearSearch(&ht, string("Frank"), &value)) {
         cout << "  Frank not found" << endl;
-    }
     cout << "\nDeleting Bob:\n";
     linearDelete(&ht, string("Bob"));
     displayLinear(&ht);
     cout << "\nInserting Frank (will use deleted spot):\n";
     linearInsert(&ht, string("Frank"), 27);
-    displayLinear(&ht);
 }
 void demonstrateQuadraticProbing() {
     cout << "\n====================================================\n";
@@ -286,26 +239,21 @@ void demonstrateQuadraticProbing() {
     quadraticInsert(&ht, string("Bob"), 30);
     quadraticInsert(&ht, string("Charlie"), 35);
     quadraticInsert(&ht, string("Diana"), 28);
-    quadraticInsert(&ht, string("Eve"), 32);
     displayQuadratic(&ht);
     cout << "\nSearching:\n";
     int value;
     if (quadraticSearch(&ht, string("Diana"), &value)) {
-        cout << "  Found Diana: " << value << endl;
     }
     cout << "\nDeleting Charlie:\n";
     quadraticDelete(&ht, string("Charlie"));
     displayQuadratic(&ht);
     cout << "\nInserting George:\n";
     quadraticInsert(&ht, string("George"), 29);
-    displayQuadratic(&ht);
 }
 void compareProbing() {
     cout << "\n====================================================\n";
-    cout << "  COMPARING LINEAR VS QUADRATIC PROBING\n";
     cout << "====================================================\n\n";
     cout << "Same keys inserted in both tables:\n\n";
-    LinearProbingHashTable<string, int> linear(11);
     QuadraticProbingHashTable<string, int> quadratic(11);
     string keys[] = {"Alice", "Bob", "Charlie", "Diana", "Eve", "Frank"};
     int values[] = {25, 30, 35, 28, 32, 27};
@@ -318,13 +266,11 @@ void compareProbing() {
     cout << "\nNotice the different distributions!\n";
     cout << "Linear: More clustering (consecutive occupied cells)\n";
     cout << "Quadratic: Better distribution (less clustering)\n";
-}
 int main() {
     cout << "========================================================\n";
     cout << "  TASK 4: HASH TABLE WITH LINEAR & QUADRATIC PROBING\n";
     cout << "========================================================\n";
     demonstrateLinearProbing();
-    demonstrateQuadraticProbing();
     compareProbing();
     cout << "\n========================================================\n";
     cout << "  All demonstrations completed!\n";

@@ -73,33 +73,23 @@ int main() {
 
     cout << "\n=== MEMORY LEAK EXAMPLE ===" << endl;
     
-    // BAD: Memory leak
     for (int i = 0; i < 3; i++) {
         int* leak = new int(i);
         cout << "Allocated: " << *leak << endl;
-        // Never deleted - memory leaked!
     }
-    // 3 integers worth of memory lost forever (until program ends)
     
-    // GOOD: Proper cleanup
     for (int i = 0; i < 3; i++) {
         int* noLeak = new int(i);
         cout << "Allocated and cleaned: " << *noLeak << endl;
-        delete noLeak;  // Properly freed
     }
     
-    // ============ DANGLING POINTERS ============
     cout << "\n=== DANGLING POINTER DANGER ===" << endl;
     
     int* ptr3 = new int(50);
     cout << "Value: " << *ptr3 << endl;
     delete ptr3;
     
-    // ptr3 now points to freed memory (dangling pointer)
-    // Accessing it is undefined behavior
-    // cout << *ptr3 << endl;  // DANGEROUS - don't do this
     
-    ptr3 = nullptr;  // Good practice - makes it safe to check
     if (ptr3 != nullptr) {
         cout << "Safe to use" << endl;
     } else {
@@ -109,7 +99,6 @@ int main() {
     return 0;
 }
 
-/*
 CRITICAL MEMORY RULES:
 
 1. EVERY 'new' MUST HAVE A 'delete'
@@ -139,9 +128,6 @@ Linked List Node:
        int data;
        Node* next;
    };
-   Node* newNode = new Node();  // Allocate on heap
-   // ... use the node ...
-   delete newNode;  // Clean up when done
 
 Dynamic Array (like vector implementation):
    - Start with small capacity
@@ -159,9 +145,6 @@ Graph:
 
 PYTHON COMPARISON:
 Python: list = [1, 2, 3]  # Automatic memory management
-C++: int* arr = new int[3]; // You control memory
-     // ... use array ...
-     delete[] arr;  // You clean up
 
 The power (and responsibility) is yours!
 */

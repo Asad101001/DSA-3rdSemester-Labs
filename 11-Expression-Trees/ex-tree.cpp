@@ -20,7 +20,6 @@ struct Node {
 Stack* stack = NULL;
 Node* tree = NULL;
 
-/* ---------- STACK (CHAR) ---------- */
 void pushChar(char c) {
     Stack* temp = new Stack;
     temp->data = c;
@@ -46,7 +45,6 @@ int isEmptyChar() {
     return stack == NULL;
 }
 
-/* ---------- STACK (ETNode) ---------- */
 void pushNode(ETNode* n) {
     Node* temp = new Node;
     temp->data = n;
@@ -63,7 +61,6 @@ ETNode* popNode() {
     return n;
 }
 
-/* ---------- HELPERS ---------- */
 ETNode* createNode(char c) {
     ETNode* n = new ETNode;
     n->data = c;
@@ -90,7 +87,6 @@ int isOperand(char c) {
     return 0;
 }
 
-/* ---------- INFIX → POSTFIX ---------- */
 void infixToPostfix(char infix[], char postfix[]) {
     int i = 0, k = 0;
 
@@ -122,7 +118,6 @@ void infixToPostfix(char infix[], char postfix[]) {
     postfix[k] = '\0';
 }
 
-/* ---------- POSTFIX → TREE ---------- */
 ETNode* buildTree(char postfix[]) {
     int i = 0;
 
@@ -148,7 +143,6 @@ ETNode* buildTree(char postfix[]) {
     return popNode();
 }
 
-/* ---------- TRAVERSAL ---------- */
 void inorder(ETNode* root) {
     if (root == NULL) return;
     inorder(root->left);
@@ -156,7 +150,6 @@ void inorder(ETNode* root) {
     inorder(root->right);
 }
 
-/* ---------- MAIN ---------- */
 int main() {
     char infix[100], postfix[100];
     ETNode* root;

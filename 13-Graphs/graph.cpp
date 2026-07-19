@@ -44,11 +44,9 @@ void Enqueue(vertex* value)
     temp->data=value;
     temp->next=nullptr;
 
-    if (front ==NULL & rear == NULL) // if both front and rear is null the assign the temp to front and rear which is the first cond if queueing the first elemnt
     {
         front=temp;
         rear=temp;
-        // temp->next=front;
 
         cout<<"\nThe value successfully queued\n";
         
@@ -56,10 +54,7 @@ void Enqueue(vertex* value)
     
     else
     {
-        rear->next=temp; // used the rear because it is always pointing to the end
-        rear=temp;  // then we point the rear to the new last elemnt
 
-        // temp->next=front;
         
         cout<<"\nThe value successfully queued\n";
 
@@ -78,13 +73,11 @@ vertex* Dequeue()
     queue*curr=front;
    
     
-    if(front==NULL) // cond 1 queue is empty
     {
         cout<<"List is empty, deletion not possible"<<endl;
         return;
     }
 
-    if (front==rear) // cond 2 only one element present
     {
         vertex* tmp = curr->data;
         free (curr);
@@ -95,9 +88,7 @@ vertex* Dequeue()
     }
 
 
-    else // cond 3 more than one element
     {
-        // rear->next=front->next;
         front=front->next;
 
         free(curr);
@@ -111,18 +102,14 @@ vertex* Dequeue()
 
 
 
-// int arrmat[5][5];
 
 
 void AddVertex (char value)
 {
-    vertex*temp;  // temp for the courses
     temp=(vertex*)malloc(sizeof(vertex));
     temp->data=value; 
-    temp->vnext=NULL;  // 
     temp->visited=false;
     
-    temp->edgelist=NULL; // 
 
     if (graph==NULL)
     {
@@ -402,49 +389,20 @@ void BFS()
 
 
 
-// void MatrixForm()
-// {
-//     int n=5;
-//     int arraymat[n][n];
 
-//     for (size_t i = 0; i < n; i++)
-//     {
-//         for (size_t j = 0; j < n; j++)
-//         {
-//             arraymat[i][j]=0;
-//         }
         
-//     }
     
 
-//     vertex* curr=graph;
 
 
     
-//     int i=0;
-//     int j=0;
-//     while(curr!=NULL)
-//     {
-//         edge* ecurr=curr->edgelist;
         
-//         while (ecurr!=NULL)
-//         {
-//             if (ecurr->v->data==curr->data)
-//             {
-//                 arraymat[i][j]=1;
-//             }
-//             j++;
-//             curr=curr->vnext;
-//         }
         
-//         ecurr=ecurr->enext;
 
-//     }
 
     
 
 
-// }
 
 
 
@@ -489,9 +447,6 @@ int main ()
                     RemoveVertex(val);
                     break;
 
-                // case 5:
-                //     MatrixForm();
-                //     break;
 
                 case 5:
                     cout << "Enter value to insert: ";

@@ -20,7 +20,6 @@ struct Edge
 
 Vertex *graph = NULL;
 
-// ================= QUEUE STRUCTURE =================
 struct dqueue
 {
     Vertex *data;
@@ -30,7 +29,6 @@ struct dqueue
 dqueue *front = nullptr;
 dqueue *rear = nullptr;
 
-// ================= QUEUE FUNCTIONS =================
 void Enqueue(Vertex *value)
 {
     dqueue *temp = (dqueue *)malloc(sizeof(dqueue));
@@ -64,7 +62,6 @@ Vertex *Dequeue()
     return val;
 }
 
-// ================= GRAPH FUNCTIONS =================
 void addVertex(char value)
 {
     Vertex *temp = (Vertex *)malloc(sizeof(Vertex));
@@ -110,7 +107,6 @@ void addEdge(char vertex1, char vertex2)
     if (v1 == NULL || v2 == NULL)
         return;
 
-    // v1 -> v2
     Edge *temp1 = (Edge *)malloc(sizeof(Edge));
     temp1->v = v2;
     temp1->enext = NULL;
@@ -125,7 +121,6 @@ void addEdge(char vertex1, char vertex2)
         curr->enext = temp1;
     }
 
-    // v2 -> v1 (undirected)
     Edge *temp2 = (Edge *)malloc(sizeof(Edge));
     temp2->v = v1;
     temp2->enext = NULL;
@@ -187,14 +182,12 @@ void Degree()
     }
 }
 
-// ================= BFS FUNCTION =================
 void BFS(char start)
 {
     Vertex *s = address(start);
     if (s == NULL)
         return;
 
-    // reset visited
     Vertex *temp = graph;
     while (temp != NULL)
     {
@@ -228,7 +221,6 @@ void BFS(char start)
     cout << endl;
 }
 
-// ================= MAIN =================
 int main()
 {
     int choice;

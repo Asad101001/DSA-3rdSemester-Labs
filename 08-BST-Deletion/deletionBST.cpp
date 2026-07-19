@@ -73,27 +73,23 @@ Node* deleteNode(Node* curr, int val) {
     }
     else {
         
-        //0 child
         if (curr->left == NULL && curr->right == NULL) {
             delete curr;
             return NULL;
         }
 
-        //1 child on right
         if (curr->left == NULL) {
             Node* temp = curr->right;
             delete curr;
             return temp;
         }
 
-        //1 child on left
         if (curr->right == NULL) {
             Node* temp = curr->left;
             delete curr;
             return temp;
         }
 
-        //2 children
         Node* temp = minNode(curr->right);
         curr->data = temp->data;
         curr->right = deleteNode(curr->right, temp->data);

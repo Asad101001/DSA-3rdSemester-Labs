@@ -63,7 +63,9 @@ void findPredSucc(struct Node * root, float x) {
     for (int i = 0; i < count; i++) {
         if (arr[i]->data == x) {
             idx = i;
-            break;
+            break;+
+            ++
+            768767
         }
     }
     if (idx == -1) {

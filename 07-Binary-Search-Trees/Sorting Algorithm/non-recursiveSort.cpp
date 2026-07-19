@@ -47,7 +47,6 @@ int main(){
         cout << arr1[i] << " ";
 
     cout << endl;
-    //    
     int arr2[] = {64, 25, 12, 22, 11};
     int n2 = sizeof(arr2)/sizeof(arr2[0]);
 
@@ -57,7 +56,6 @@ int main(){
         cout << arr2[i] << " ";   
         
     cout << endl;    
-    //
     int arr3[] = {12, 11, 13, 5, 6};
     int n3 = sizeof(arr3)/sizeof(arr3[0]);
 

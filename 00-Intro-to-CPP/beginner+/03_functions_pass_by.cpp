@@ -18,7 +18,6 @@ void passByPointer(int* x) {
 
 void displayValue(const int& x) {
     cout << "Value (read-only): " << x << endl;
-    // x = 50; ERROR: can't modify const reference
 }
 
 void modifyArray(int arr[], int size) {
@@ -40,33 +39,24 @@ int& getElement(int arr[], int index) {
 
 
 int main() {
-    // ============ TESTING PASS BY VALUE ============
     int num1 = 10;
     cout << "=== PASS BY VALUE ===" << endl;
     cout << "Before: " << num1 << endl;
     passByValue(num1);
-    cout << "After: " << num1 << endl;  // Still 10 - unchanged
     
-    // ============ TESTING PASS BY REFERENCE ============
     int num2 = 10;
     cout << "\n=== PASS BY REFERENCE ===" << endl;
     cout << "Before: " << num2 << endl;
     passByReference(num2);
-    cout << "After: " << num2 << endl;  // Changed to 200
     
-    // ============ TESTING PASS BY POINTER ============
     int num3 = 10;
     cout << "\n=== PASS BY POINTER ===" << endl;
     cout << "Before: " << num3 << endl;
-    passByPointer(&num3);  // Pass address
-    cout << "After: " << num3 << endl;  // Changed to 300
     
-    // ============ TESTING CONST REFERENCE ============
     int num4 = 500;
     cout << "\n=== CONST REFERENCE ===" << endl;
     displayValue(num4);
     
-    // ============ TESTING ARRAY MODIFICATION ============
     int myArray[5] = {1, 2, 3, 4, 5};
     cout << "\n=== ARRAY PASSING ===" << endl;
     cout << "Before: ";
@@ -76,10 +66,8 @@ int main() {
     cout << "After: ";
     displayArray(myArray, 5);
     
-    // ============ RETURN BY REFERENCE ============
     cout << "\n=== RETURN BY REFERENCE ===" << endl;
     cout << "Element at index 2: " << getElement(myArray, 2) << endl;
-    getElement(myArray, 2) = 999;  // Can assign to it!
     cout << "After assignment: " << getElement(myArray, 2) << endl;
     
     return 0;

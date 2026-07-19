@@ -59,7 +59,6 @@ int main() {
         cout << arr1[i] << " ";
 
     cout << endl;
-    //
 
     int arr2[] = {10, 7, 8, 9, 1, 5};
     int n2 = sizeof(arr2)/sizeof(arr2[0]);

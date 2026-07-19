@@ -95,7 +95,6 @@ void addEdge(char vertex1, char vertex2){
         return;
     }
 
-    //for edge from v1 to v2
     Edge *temp1 = (Edge *)malloc(sizeof(Edge));
     temp1->vertex = v2;
     temp1->edge_next = NULL;
@@ -109,7 +108,6 @@ void addEdge(char vertex1, char vertex2){
         curr1->edge_next = temp1;
     }
 
-    //for edge from v2 to v1
     Edge *temp2=(Edge*)malloc(sizeof(Edge));
     temp2->vertex = v1;
     temp2->edge_next = NULL;
