@@ -1,9 +1,8 @@
 Objective # Final Lab:
 Implement a singly linked list with the following operations:
 
-1. Insert a value at the n-th position, where n is derived from the given value.
+1. Insert a value at the n-th position, where n is derived from the given value (e.g., if the value is 767, it must be inserted at the 7th position in the list).
 2. If the derived index is greater than the total number of nodes currently in the list, handle the out-of-bounds insertion as follows:
    a) If the derived index is even, insert the new node at the tail of the list.
    b) If the derived index is odd, insert the new node at the head of the list.
-3. Reverse the list iteratively.
-4. Display all elements in the list using recursion.
+3. Display all elements in reverse the list without using recursion.
